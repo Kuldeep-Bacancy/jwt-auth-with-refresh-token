@@ -9,8 +9,8 @@ class Api::V1::BaseController < ApplicationController
       return render_401 unless token.present?
 
       current_user_token(token)
-    rescue (JWT::ExpiredSignature || JWT::DecodeError)
-      render_401
+    rescue => e
+      render_400(e.message)
     end
   end
 
